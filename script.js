@@ -3,15 +3,7 @@ function calculatePrice() {
     const kanak = Number(document.getElementById("kanak").value);
     const warga = Number(document.getElementById("warga").value);
     const isUUM = document.getElementById("uum").value;
-    const dateInput = document.getElementById("date").value;
-
-    if (!dateInput) {
-        document.getElementById("result").innerHTML =
-            "<strong>Please select a booking date.</strong>";
-        return;
-    }
-
-    const bookingDate = new Date(dateInput);
+    const isEarly = document.getElementById("early").value;
 
     const PRICE_DEWASA = 55;
     const PRICE_KANAK = 25;
@@ -32,14 +24,11 @@ function calculatePrice() {
 
     let total = dewasaTotal + kanakTotal + wargaTotal;
 
-    // Date discount
-    const start = new Date("2026-01-22");
-    const end = new Date("2026-02-19");
-
-    if (bookingDate >= start && bookingDate <= end) {
-        const dateDiscount = total * 0.10;
-        total -= dateDiscount;
-        discountText += "✔ 10% booking date discount<br>";
+    // Early Bird discount (Total)
+    if (isEarly === "yes") {
+        const earlyDiscount = total * 0.10;
+        total -= earlyDiscount;
+        discountText += "✔ 10% Early Bird discount<br>";
     }
 
     document.getElementById("result").innerHTML = `
